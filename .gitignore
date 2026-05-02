@@ -1,0 +1,103 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Flutter/Dart/Pub specific
+**/doc/api/
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.xcframework
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Pub cache
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Generated code
+lib/generated_plugin_registrant.dart
+
+# macOS
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral/
+
+# Windows
+windows/flutter/generated_plugins.cmake
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugin_registrant.h
+
+# Linux
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugin_registrant.h
+linux/flutter/generated_plugins.cmake
+
+# Android
+/android/.gradle/
+/android/local.properties
+/android/captures/
+**/android/**/GeneratedPluginRegistrant.java
+/android/app/debug/
+/android/app/profile/
+/android/app/release/
+
+# iOS
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/Podfile.lock
+**/ios/Runner.xcworkspace/
+
+# Build artifacts
+/build/
+
+# Coverage
+coverage/
+
+# Environment variables
+.env
+.env.local
+
+# OS specific
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Plans directory
+/plans/
