@@ -7,77 +7,13 @@ import '../widgets/category_tabs.dart';
 import '../widgets/poster_preview.dart';
 import '../widgets/bottom_action_row.dart';
 import '../widgets/profile_editor.dart';
+import '../widgets/app_drawer.dart';
 import '../utils/constants.dart';
+import '../utils/app_strings.dart';
+import '../utils/dialogs.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
-
-  void _showUpgradeDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Row(
-          children: [
-            Icon(Icons.stars, color: Colors.amber, semanticLabel: 'Premium Star'),
-            SizedBox(width: 10),
-            Text('Go Premium'),
-          ],
-        ),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Unlock all exclusive features:'),
-            SizedBox(height: 12),
-            Row(
-              children: [
-                Icon(Icons.check_circle, color: Colors.green, size: 18),
-                SizedBox(width: 8),
-                Text('All Premium Templates'),
-              ],
-            ),
-            SizedBox(height: 4),
-            Row(
-              children: [
-                Icon(Icons.check_circle, color: Colors.green, size: 18),
-                SizedBox(width: 8),
-                Text('No Ads (Future)'),
-              ],
-            ),
-            SizedBox(height: 4),
-            Row(
-              children: [
-                Icon(Icons.check_circle, color: Colors.green, size: 18),
-                SizedBox(width: 8),
-                Text('High-Res Export'),
-              ],
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Maybe Later'),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.amber,
-              foregroundColor: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Payment gateway integration coming soon!')),
-                );
-              }
-            },
-            child: const Text('Upgrade Now'),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -104,6 +40,7 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: const HomeAppBar(),
+      drawer: const AppDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -125,7 +62,7 @@ class HomeScreen extends ConsumerWidget {
                             children: [
                               Icon(Icons.format_quote, size: 48, color: Colors.grey),
                               SizedBox(height: 8),
-                              Text('No quotes in this category', style: TextStyle(color: Colors.grey)),
+                              Text(AppStrings.noQuotesInCategory, style: TextStyle(color: Colors.grey)),
                             ],
                           ),
                         )
@@ -155,11 +92,11 @@ class HomeScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Select Design',
+                      AppStrings.selectDesign,
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text(
-                      'See All',
+                      AppStrings.seeAll,
                       style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.w600),
                     ),
                   ],
@@ -170,7 +107,7 @@ class HomeScreen extends ConsumerWidget {
               SizedBox(
                 height: AppConstants.templateSelectorHeight,
                 child: filteredTemplates.isEmpty
-                    ? const Center(child: Text('No templates for this category', style: TextStyle(fontSize: 12, color: Colors.grey)))
+                    ? const Center(child: Text(AppStrings.noTemplatesForCategory, style: TextStyle(fontSize: 12, color: Colors.grey)))
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -181,7 +118,7 @@ class HomeScreen extends ConsumerWidget {
                           return GestureDetector(
                             onTap: () {
                               if (template.isPremium && !isUserPremium) {
-                                _showUpgradeDialog(context);
+                                showUpgradeDialog(context, ref);
                               } else {
                                 ref.read(selectedTemplateProvider.notifier).state = template;
                               }

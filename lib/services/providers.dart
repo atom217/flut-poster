@@ -85,3 +85,22 @@ class EditorNotifier extends StateNotifier<EditorSettings> {
 final editorProvider = StateNotifierProvider<EditorNotifier, EditorSettings>((ref) {
   return EditorNotifier();
 });
+
+// Infinite scroll pagination for quotes list
+const int _quotesPageSize = 10;
+
+final quotesPageCountProvider = StateProvider.autoDispose<int>((ref) => _quotesPageSize);
+final isLoadingMoreQuotesProvider = StateProvider.autoDispose<bool>((ref) => false);
+
+final paginatedQuotesProvider = Provider.autoDispose.family<List<Quote>, String>((ref, categoryId) {
+  final pageCount = ref.watch(quotesPageCountProvider);
+  // Generate a pool of 100 quotes by cycling through dummy data
+  final allQuotes = generateExpandedQuotes(100);
+
+  if (categoryId == 'all') {
+    return allQuotes.take(pageCount).toList();
+  }
+
+  final filtered = allQuotes.where((q) => q.categoryId == categoryId).toList();
+  return filtered.take(pageCount).toList();
+});

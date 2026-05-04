@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'screens/home_screen.dart';
+import 'screens/welcome_screen.dart';
 import 'theme/app_theme.dart';
+import 'utils/app_strings.dart';
 
 void main() {
   runApp(
@@ -17,10 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Jai Bhim Status Maker',
+      title: AppStrings.appTitle,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const HomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

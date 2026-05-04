@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -35,7 +37,6 @@ out/
 .packages
 .pub-cache/
 .pub/
-pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 
@@ -80,6 +81,10 @@ linux/flutter/generated_plugins.cmake
 **/ios/Podfile.lock
 **/ios/Runner.xcworkspace/
 
+# macOS
+**/macos/Podfile.lock
+**/macos/Pods/
+
 # Build artifacts
 /build/
 
@@ -98,6 +103,3 @@ Desktop.ini
 *.tmp
 *.bak
 *~
-
-# Plans directory
-/plans/
