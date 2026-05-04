@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/models.dart';
 import '../services/providers.dart';
+import '../utils/app_strings.dart';
 import '../utils/file_stub.dart' if (dart.library.io) '../utils/file_io.dart';
 
 class PosterPreview extends ConsumerWidget {
@@ -136,7 +137,7 @@ class PosterPreview extends ConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      '- ${quote.author}',
+                      '${AppStrings.quoteAuthorPrefix}${quote.author}',
                       style: TextStyle(
                         color: template.textColor.withValues(alpha: 0.8),
                         fontSize: 16,

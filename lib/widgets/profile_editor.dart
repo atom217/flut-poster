@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import '../services/providers.dart';
+import '../utils/app_strings.dart';
 import '../utils/file_stub.dart' if (dart.library.io) '../utils/file_io.dart';
+import '../utils/photo_utils.dart';
 
 class ProfileEditor extends ConsumerStatefulWidget {
   const ProfileEditor({super.key});
@@ -15,7 +16,6 @@ class ProfileEditor extends ConsumerStatefulWidget {
 class _ProfileEditorState extends ConsumerState<ProfileEditor> {
   late TextEditingController _nameController;
   late TextEditingController _subtitleController;
-  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -40,19 +40,7 @@ class _ProfileEditorState extends ConsumerState<ProfileEditor> {
   }
 
   Future<void> _pickImage() async {
-    try {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null && mounted) {
-        // On web, image.path is a blob URL. On mobile, it's a file path.
-        ref.read(userProfileProvider.notifier).update((state) => state.copyWith(photoUrl: image.path));
-      }
-    } catch (e) {
-      if (mounted && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error picking image: $e')),
-        );
-      }
-    }
+    await pickAndSetProfilePhoto(ref, context);
   }
 
   @override
@@ -83,7 +71,7 @@ class _ProfileEditorState extends ConsumerState<ProfileEditor> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Profile Customization',
+              AppStrings.profileCustomization,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black87),
             ),
             const SizedBox(height: 16),
@@ -98,8 +86,8 @@ class _ProfileEditorState extends ConsumerState<ProfileEditor> {
                         backgroundColor: Colors.amber.shade100,
                         backgroundImage: hasValidPhoto
                             ? (kIsWeb
-                                ? NetworkImage(photoUrl!) as ImageProvider
-                                : fileImageProvider(photoUrl!))
+                                ? NetworkImage(photoUrl) as ImageProvider
+                                : fileImageProvider(photoUrl))
                             : null,
                         child: hasValidPhoto ? null : const Icon(Icons.person, color: Colors.amber, size: 30),
                       ),
@@ -127,7 +115,7 @@ class _ProfileEditorState extends ConsumerState<ProfileEditor> {
                         controller: _nameController,
                         decoration: InputDecoration(
                           isDense: true,
-                          labelText: 'User Name',
+                          labelText: AppStrings.userNameLabel,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -142,7 +130,7 @@ class _ProfileEditorState extends ConsumerState<ProfileEditor> {
                         controller: _subtitleController,
                         decoration: InputDecoration(
                           isDense: true,
-                          labelText: 'Subtitle',
+                          labelText: AppStrings.subtitleLabel,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../services/providers.dart';
+import '../utils/app_strings.dart';
 import 'package:universal_html/html.dart' as html;
 
 class BottomActionRow extends ConsumerWidget {
@@ -19,7 +20,7 @@ class BottomActionRow extends ConsumerWidget {
         // Handle case where capture failed
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed to capture image.'), backgroundColor: Colors.red),
+            const SnackBar(content: Text(AppStrings.failedToCaptureImage), backgroundColor: Colors.red),
           );
         }
         return null;
@@ -32,7 +33,7 @@ class BottomActionRow extends ConsumerWidget {
 
         // Trigger download
         html.AnchorElement(href: url)
-          ..setAttribute("download", "jai_bhim_poster.png")
+          ..setAttribute("download", AppStrings.posterFileName)
           ..click();
 
         return "web_download_initiated"; 
@@ -52,7 +53,7 @@ class BottomActionRow extends ConsumerWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to generate image: ${e.toString()}'),
+            content: Text('${AppStrings.failedToGenerateImagePrefix}${e.toString()}'),
             backgroundColor: Colors.red,
           ),
         );
@@ -64,7 +65,7 @@ class BottomActionRow extends ConsumerWidget {
   Future<void> _handleDownload(BuildContext context, WidgetRef ref) async {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Preparing image for download...'),
+        content: Text(AppStrings.preparingImageForDownload),
         duration: Duration(milliseconds: 700),
       ),
     );
@@ -75,17 +76,17 @@ class BottomActionRow extends ConsumerWidget {
       if (result == "web_download_initiated") {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Download initiated! Check your downloads.'),
+            content: Text(AppStrings.downloadInitiated),
             backgroundColor: Colors.green,
           ),
         );
       } else if (result.isNotEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Image saved to: ${result.split('/').last}'),
+            content: Text('${AppStrings.imageSavedToPrefix}${result.split('/').last}'),
             backgroundColor: Colors.green,
             action: SnackBarAction(
-              label: 'OK',
+              label: AppStrings.ok,
               textColor: Colors.white,
               onPressed: () {},
             ),
@@ -98,7 +99,7 @@ class BottomActionRow extends ConsumerWidget {
   Future<void> _handleShare(BuildContext context, WidgetRef ref) async {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Preparing image for sharing...'),
+        content: Text(AppStrings.preparingImageForSharing),
         duration: Duration(milliseconds: 700),
       ),
     );
@@ -110,19 +111,19 @@ class BottomActionRow extends ConsumerWidget {
       if (kIsWeb) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Sharing is not supported on the web yet.'),
+            content: Text(AppStrings.sharingNotSupportedWeb),
             backgroundColor: Colors.orange,
           ),
         );
       } else if (path != "web_download_initiated") { // Ensure it's not the web download indicator
         await Share.shareXFiles(
           [XFile(path)],
-          text: 'Check out this Jai Bhim status!',
+          text: AppStrings.shareText,
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Cannot share: Download initiated on web.'),
+            content: Text(AppStrings.cannotShareWeb),
             backgroundColor: Colors.orange,
           ),
         );
@@ -140,13 +141,13 @@ class BottomActionRow extends ConsumerWidget {
           _buildActionButton(
             context,
             icon: Icons.share,
-            label: 'Share',
+            label: AppStrings.shareLabel,
             onTap: () => _handleShare(context, ref),
           ),
           _buildActionButton(
             context,
             icon: Icons.download,
-            label: 'Download',
+            label: AppStrings.downloadLabel,
             onTap: () => _handleDownload(context, ref),
           ),
         ],

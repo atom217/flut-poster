@@ -50,3 +50,17 @@ final List<TemplateModel> dummyTemplates = [
   TemplateModel(id: 't11', name: 'Party', backgroundColor: const Color(0xFFE91E63), textColor: Colors.white, categoryId: 'bd', gradientColors: [const Color(0xFFF06292), const Color(0xFFE91E63)]),
   TemplateModel(id: 't12', name: 'Gold', backgroundColor: const Color(0xFFFFD700), textColor: Colors.black, categoryId: 'bd', isPremium: true, gradientColors: [const Color(0xFFFFF176), const Color(0xFFFFD700)]),
 ];
+
+/// Generates an expanded list of quotes for pagination simulation.
+/// Cycles through dummyQuotes to create a pool of [count] quotes.
+List<Quote> generateExpandedQuotes(int count) {
+  return List.generate(count, (i) {
+    final base = dummyQuotes[i % dummyQuotes.length];
+    return Quote(
+      id: '${base.id}_$i',
+      text: base.text,
+      author: base.author,
+      categoryId: base.categoryId,
+    );
+  });
+}

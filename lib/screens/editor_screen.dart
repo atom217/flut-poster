@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/models.dart';
 import '../services/providers.dart';
+import '../utils/app_strings.dart';
 
 class EditorScreen extends ConsumerWidget {
   final Quote quote;
@@ -24,14 +25,14 @@ class EditorScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Status'),
+        title: const Text(AppStrings.editStatus),
         actions: [
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: () {
               // Share functionality to be implemented
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Share functionality coming soon!')),
+                const SnackBar(content: Text(AppStrings.shareFunctionalityComingSoon)),
               );
             },
           ),
@@ -69,7 +70,7 @@ class EditorScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      '- ${quote.author}',
+                      '${AppStrings.quoteAuthorPrefix}${quote.author}',
                       style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 16,
@@ -87,14 +88,14 @@ class EditorScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Text Size', style: TextStyle(fontWeight: FontWeight.bold)),
+                const Text(AppStrings.textSize, style: TextStyle(fontWeight: FontWeight.bold)),
                 Slider(
                   value: settings.fontSize,
                   min: 16,
                   max: 40,
                   onChanged: (value) => notifier.updateFontSize(value),
                 ),
-                const Text('Background Color', style: TextStyle(fontWeight: FontWeight.bold)),
+                const Text(AppStrings.backgroundColor, style: TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 SizedBox(
                   height: 50,
