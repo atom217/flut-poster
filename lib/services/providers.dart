@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:audioplayers/audioplayers.dart';
 import '../data/dummy_data.dart';
 import '../models/models.dart';
 import '../theme/app_theme.dart';
@@ -7,6 +8,26 @@ import '../theme/app_theme.dart';
 final screenshotControllerProvider = Provider((ref) => ScreenshotController());
 
 final isUserPremiumProvider = StateProvider<bool>((ref) => false);
+
+class AuthNotifier extends StateNotifier<AuthUser?> {
+  AuthNotifier() : super(null);
+
+  bool login(String username, String password) {
+    if (username == 'admin' && password == 'password123') {
+      state = AuthUser(username: username, isLoggedIn: true);
+      return true;
+    }
+    return false;
+  }
+
+  void logout() {
+    state = null;
+  }
+}
+
+final authProvider = StateNotifierProvider<AuthNotifier, AuthUser?>((ref) {
+  return AuthNotifier();
+});
 
 final categoriesProvider = Provider<List<Category>>((ref) {
   return dummyCategories;
@@ -50,13 +71,29 @@ final templatesByCategoryProvider = Provider.family<List<TemplateModel>, String>
 class EditorSettings {
   final double fontSize;
   final int backgroundColorValue;
+  final String? backgroundImageUrl;
+  final String? musicPath;
 
-  EditorSettings({required this.fontSize, required this.backgroundColorValue});
+  EditorSettings({
+    required this.fontSize,
+    required this.backgroundColorValue,
+    this.backgroundImageUrl,
+    this.musicPath,
+  });
 
-  EditorSettings copyWith({double? fontSize, int? backgroundColorValue}) {
+  EditorSettings copyWith({
+    double? fontSize,
+    int? backgroundColorValue,
+    String? backgroundImageUrl,
+    bool clearBackgroundImage = false,
+    String? musicPath,
+    bool clearMusic = false,
+  }) {
     return EditorSettings(
       fontSize: fontSize ?? this.fontSize,
       backgroundColorValue: backgroundColorValue ?? this.backgroundColorValue,
+      backgroundImageUrl: clearBackgroundImage ? null : (backgroundImageUrl ?? this.backgroundImageUrl),
+      musicPath: clearMusic ? null : (musicPath ?? this.musicPath),
     );
   }
 }
@@ -80,10 +117,30 @@ class EditorNotifier extends StateNotifier<EditorSettings> {
       state = state.copyWith(backgroundColorValue: colorValue);
     }
   }
+
+  void updateBackgroundImage(String? path) {
+    state = state.copyWith(
+      backgroundImageUrl: path,
+      clearBackgroundImage: path == null,
+    );
+  }
+
+  void updateMusic(String? path) {
+    state = state.copyWith(
+      musicPath: path,
+      clearMusic: path == null,
+    );
+  }
 }
 
 final editorProvider = StateNotifierProvider<EditorNotifier, EditorSettings>((ref) {
   return EditorNotifier();
+});
+
+final audioPlayerProvider = Provider<AudioPlayer>((ref) {
+  final player = AudioPlayer();
+  ref.onDispose(() => player.dispose());
+  return player;
 });
 
 // Infinite scroll pagination for quotes list

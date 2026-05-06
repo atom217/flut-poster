@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/app_strings.dart';
 import '../theme/app_theme.dart';
 import 'home_screen.dart';
+import 'login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -49,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 60),
 
-                // Login with Phone Button
+                // Login Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -62,11 +63,9 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text(AppStrings.welcomeAuthComingSoon),
-                          duration: const Duration(seconds: 2),
-                        ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
                       );
                     },
                     child: Text(

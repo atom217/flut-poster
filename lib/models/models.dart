@@ -74,3 +74,13 @@ class TemplateModel {
     this.gradientEnd,
   });
 }
+
+class AuthUser {
+  final String username;
+  final bool isLoggedIn;
+
+  AuthUser({
+    required this.username,
+    this.isLoggedIn = false,
+  });
+}

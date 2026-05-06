@@ -41,6 +41,9 @@ dependencies:
   path_provider: ^2.1.5
   universal_html: ^2.2.1
   share_plus: ^10.0.3
+  audioplayers: ^6.1.0
+  file_picker: ^8.1.7
+  ffmpeg_kit_flutter_new: ^4.1.0
 
 dev_dependencies:
   flutter_test:

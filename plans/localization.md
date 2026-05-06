@@ -4,8 +4,8 @@
 
  abstract final class AppStrings {
    // App-level
-   static const appTitle = 'Jai Bhim Status Maker';
-   static const appBarTitle = 'Jai Bhim';
+   static const appTitle = 'Jai Ram Status Maker';
+   static const appBarTitle = 'Jai Ram';
 
    // Premium / upgrade
    static const getPremium = 'Get Premium';
@@ -42,7 +42,7 @@
    static const ok = 'OK';
    static const preparingImageForSharing = 'Preparing image for sharing...';
    static const sharingNotSupportedWeb = 'Sharing is not supported on the web yet.';
-   static const shareText = 'Check out this Jai Bhim status!';
+   static const shareText = 'Check out this Jai Ram status!';
    static const shareLabel = 'Share';
    static const downloadLabel = 'Download';
    static const cannotShareWeb = 'Cannot share: Download initiated on web.';
@@ -74,7 +74,7 @@
  Files to modify (replace inline strings with AppStrings.xxx):
 
  - lib/main.dart — title
- - lib/widgets/home_app_bar.dart — 'Jai Bhim', 'Get Premium'
+ - lib/widgets/home_app_bar.dart — 'Jai Ram', 'Get Premium'
  - lib/screens/home_screen.dart — all dialog strings + empty state strings
  - lib/screens/editor_screen.dart — 4 strings
  - lib/screens/quote_list_screen.dart — '- ' prefix

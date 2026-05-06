@@ -14,8 +14,23 @@ class PosterPreview extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final template = ref.watch(selectedTemplateProvider);
+    final editorSettings = ref.watch(editorProvider);
     final user = ref.watch(userProfileProvider);
     final photoUrl = user.photoUrl;
+
+    final backgroundImageUrl = editorSettings.backgroundImageUrl;
+
+    // Function to get image provider based on platform
+    ImageProvider? getBackgroundImageProvider(String? url) {
+      if (url == null) return null;
+      if (kIsWeb) {
+        return NetworkImage(url);
+      } else {
+        return fileImageProvider(url);
+      }
+    }
+
+    final bgImageProvider = getBackgroundImageProvider(backgroundImageUrl);
 
     // Function to get the image widget based on platform
     Widget getImageWidget(String? url, Color textColor) {
@@ -58,7 +73,17 @@ class PosterPreview extends ConsumerWidget {
       decoration: BoxDecoration(
         color: template.backgroundColor,
         borderRadius: BorderRadius.circular(16),
-        gradient: template.gradientColors != null
+        image: bgImageProvider != null
+            ? DecorationImage(
+                image: bgImageProvider,
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withValues(alpha: 0.3),
+                  BlendMode.darken,
+                ),
+              )
+            : null,
+        gradient: bgImageProvider == null && template.gradientColors != null
             ? LinearGradient(
                 colors: template.gradientColors!,
                 begin: template.gradientBegin ?? Alignment.topLeft,

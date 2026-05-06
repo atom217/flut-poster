@@ -1,4 +1,4 @@
-# Plan: 7-Feature Enhancement for Jai Bhim Status Maker
+# Plan: 7-Feature Enhancement for Jai Ram Status Maker
 
 ## Context
 
