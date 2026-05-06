@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Jai Bhim Status Maker** is a Flutter application for creating customizable status/quote posters featuring quotes by Dr. B.R. Ambedkar. Users can select templates, customize text and colors, and share their creations.
+**Jai Ram Status Maker** is a Flutter application for creating customizable status/quote posters featuring quotes by Dr. B.R. Ambedkar. Users can select templates, customize text and colors, and share their creations.
 
 ## Build & Run Commands
 

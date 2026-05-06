@@ -5,6 +5,8 @@ import '../utils/app_strings.dart';
 import '../utils/dialogs.dart';
 import '../utils/photo_utils.dart';
 import '../screens/quote_list_screen.dart';
+import '../screens/settings_screen.dart';
+import '../screens/welcome_screen.dart';
 
 class AppDrawer extends ConsumerWidget {
   const AppDrawer({super.key});
@@ -14,6 +16,7 @@ class AppDrawer extends ConsumerWidget {
     final user = ref.watch(userProfileProvider);
     final isUserPremium = ref.watch(isUserPremiumProvider);
     final categories = ref.watch(categoriesProvider);
+    final authUser = ref.watch(authProvider);
 
     final hasValidPhoto = user.photoUrl != null && user.photoUrl!.isNotEmpty;
 
@@ -60,7 +63,7 @@ class AppDrawer extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          user.name,
+                          authUser?.isLoggedIn == true ? user.name : AppStrings.guestUser,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -68,7 +71,7 @@ class AppDrawer extends ConsumerWidget {
                           ),
                         ),
                         Text(
-                          user.subtitle,
+                          authUser?.isLoggedIn == true ? user.subtitle : 'Sign in to customize',
                           style: const TextStyle(
                             color: Colors.white70,
                             fontSize: 12,
@@ -130,11 +133,26 @@ class AppDrawer extends ConsumerWidget {
                   title: const Text(AppStrings.drawerNavSettings),
                   onTap: () {
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text(AppStrings.drawerSettingsComingSoon)),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const SettingsScreen()),
                     );
                   },
                 ),
+                if (authUser?.isLoggedIn == true)
+                  ListTile(
+                    leading: const Icon(Icons.logout, color: Colors.red),
+                    title: const Text(AppStrings.logout, style: TextStyle(color: Colors.red)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      ref.read(authProvider.notifier).logout();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (_) => const WelcomeScreen()),
+                        (route) => false,
+                      );
+                    },
+                  ),
               ],
             ),
           ),

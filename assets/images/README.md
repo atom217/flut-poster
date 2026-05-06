@@ -1,6 +1,6 @@
 # App Icon Assets
 
-This directory contains app icon files for the Jai Bhim Status Maker app.
+This directory contains app icon files for the Jai Ram Status Maker app.
 
 ## Required Icon Files
 
@@ -20,7 +20,7 @@ This directory contains app icon files for the Jai Bhim Status Maker app.
 - **Style**: Simple, bold, professional
 - **Colors**: Indigo (#3F51B5) as primary color, White as text/accent
 - **Elements**:
-  - "JB" initials (representing Jai Bhim)
+  - "JB" initials (representing Jai Ram)
   - Open book icon (representing education and Dr. B.R. Ambedkar's constitution)
   - Circle shape for app_icon_foreground (for adaptive icon masking)
 

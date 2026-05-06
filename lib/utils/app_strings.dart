@@ -1,7 +1,7 @@
 abstract final class AppStrings {
   // App-level
-  static const appTitle = 'Jai Bhim Status Maker';
-  static const appBarTitle = 'Jai Bhim';
+  static const appTitle = 'Jai Ram Status Maker';
+  static const appBarTitle = 'Jai Ram';
 
   // Premium / upgrade
   static const getPremium = 'Get Premium';
@@ -22,9 +22,13 @@ abstract final class AppStrings {
 
   // Editor screen
   static const editStatus = 'Edit Status';
-  static const shareFunctionalityComingSoon = 'Share functionality coming soon!';
+  static const shareFunctionalityComingSoon =
+      'Share functionality coming soon!';
   static const textSize = 'Text Size';
   static const backgroundColor = 'Background Color';
+  static const backgroundImage = 'Background Image';
+  static const setBackgroundImage = 'Set Background Image';
+  static const removeBackgroundImage = 'Remove Background Image';
 
   // Quote list
   static const quoteAuthorPrefix = '- ';
@@ -37,8 +41,9 @@ abstract final class AppStrings {
   static const imageSavedToPrefix = 'Image saved to: ';
   static const ok = 'OK';
   static const preparingImageForSharing = 'Preparing image for sharing...';
-  static const sharingNotSupportedWeb = 'Sharing is not supported on the web yet.';
-  static const shareText = 'Check out this Jai Bhim status!';
+  static const sharingNotSupportedWeb =
+      'Sharing is not supported on the web yet.';
+  static const shareText = 'Check out this Jai Ram status!';
   static const shareLabel = 'Share';
   static const downloadLabel = 'Download';
   static const cannotShareWeb = 'Cannot share: Download initiated on web.';
@@ -51,10 +56,28 @@ abstract final class AppStrings {
   static const subtitleLabel = 'Subtitle';
 
   // Welcome screen
-  static const welcomeLoginWithPhone = 'Login with Phone';
+  static const welcomeLoginWithPhone = 'Login';
   static const welcomeContinueAsGuest = 'Continue as Guest';
   static const welcomeAuthComingSoon = 'Authentication coming soon!';
   static const welcomeTagline = 'Share the wisdom of Dr. B.R. Ambedkar';
+
+  // Login screen
+  static const loginTitle = 'Login';
+  static const loginInstruction = 'Enter your credentials to continue';
+  static const usernameLabel = 'Username';
+  static const passwordLabel = 'Password';
+  static const loginButton = 'Login';
+  static const invalidCredentials = 'Invalid username or password';
+  static const usernameRequired = 'Please enter username';
+  static const passwordRequired = 'Please enter password';
+
+  // Settings screen
+  static const settingsTitle = 'Settings';
+  static const accountSection = 'Account';
+  static const profileSection = 'Profile';
+  static const premiumStatus = 'Premium Status';
+  static const logout = 'Logout';
+  static const guestUser = 'Guest User';
 
   // Drawer
   static const drawerNavHome = 'Home';
@@ -64,5 +87,6 @@ abstract final class AppStrings {
   static const drawerUpgradeSection = 'Upgrade to Premium';
   static const drawerSettingsComingSoon = 'Settings coming soon!';
   static const drawerPremiumActive = 'Premium Active';
-  static const aboutDescription = 'A poster maker app inspired by Dr. B.R. Ambedkar\'s teachings.';
+  static const aboutDescription =
+      'A poster maker app inspired by Dr. B.R. Ambedkar\'s teachings.';
 }

@@ -1,4 +1,4 @@
-Welcome to Flutter! This project, Jai Bhim Status Maker, is a great example of a modern, cross-platform Flutter app. It’s designed to let users create and customize posters with quotes by Dr. B.R. Ambedkar.
+Welcome to Flutter! This project, Jai Ram Status Maker, is a great example of a modern, cross-platform Flutter app. It’s designed to let users create and customize posters with quotes by Dr. B.R. Ambedkar.
 
   Here is a step-by-step breakdown of how this project is structured and how it works.
 
